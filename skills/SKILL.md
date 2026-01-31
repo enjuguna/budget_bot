@@ -1,46 +1,26 @@
 ---
-name: clawhub-budget
-description: Comprehensive personal budget planner with expense tracking, income management, budget creation, savings goals, and AI-powered insights for financial management
+name: agent-money-tracker
+description: Intelligent budget tracking and financial management library for AI agents - expense tracking, income management, budgets, savings goals, and LLM-powered insights
 ---
 
-# Clawhub Budget Planner
+# Agent Money Tracker
 
-A powerful TypeScript-based personal budget management skill for MoltBot with intelligent expense tracking, income management, budget creation, and advanced analytics.
-
-## Features
-
-### Core Features
-- **Expense Tracking** - Log and categorize all expenses with tags and merchants
-- **Income Management** - Track multiple income sources and frequencies
-- **Budget Creation** - Set spending limits per category with alerts at thresholds
-- **Savings Goals** - Create and track progress toward financial goals
-- **Recurring Transactions** - Automate tracking for bills, subscriptions, salary
-
-### Smart Features (LLM-Powered)
-- **Natural Language Input** - Parse "spent $50 on groceries yesterday"
-- **Auto-Categorization** - Smart category detection from descriptions
-- **Anomaly Detection** - Alerts for unusual spending patterns
-- **Spending Insights** - Trend analysis and savings recommendations
-- **Budget Suggestions** - Recommended limits based on spending history
-
----
+A TypeScript library for AI agents to track expenses, income, budgets, and savings goals with LLM-powered natural language parsing. **No frontend required** - designed for programmatic use by agents and bots.
 
 ## Installation
 
 ```bash
-cd budget_bot
-npm install
-npm run build
+npm install agent-money-tracker
 ```
 
 ---
 
 ## Usage
 
-### Initialize the Budget Planner
+### Initialize the Budget Tracker
 
 ```typescript
-import { clawhub } from './dist/index.js';
+import { clawhub } from 'agent-money-tracker';
 
 // Initialize (required before any operations)
 await clawhub.initialize();
@@ -201,25 +181,25 @@ const dataPath = clawhub.getDataPath();
 ## Default Categories
 
 ### Expense Categories
-| Category | Icon | Color |
-|----------|------|-------|
-| Food & Dining | 🍔 | #FF6B6B |
-| Transportation | 🚗 | #4ECDC4 |
-| Shopping | 🛍️ | #45B7D1 |
-| Bills & Utilities | 💡 | #96CEB4 |
-| Entertainment | 🎬 | #FFEAA7 |
-| Health & Fitness | 💪 | #DDA0DD |
-| Education | 📚 | #98D8C8 |
-| Personal Care | 💄 | #F7DC6F |
-| Subscriptions | 📱 | #BB8FCE |
+| Category | Icon |
+|----------|------|
+| Food & Dining | 🍔 |
+| Transportation | 🚗 |
+| Shopping | 🛍️ |
+| Bills & Utilities | 💡 |
+| Entertainment | 🎬 |
+| Health & Fitness | 💪 |
+| Education | 📚 |
+| Personal Care | 💄 |
+| Subscriptions | 📱 |
 
 ### Income Categories
-| Category | Icon | Color |
-|----------|------|-------|
-| Salary | 💰 | #2ECC71 |
-| Freelance | 💻 | #3498DB |
-| Investments | 📈 | #9B59B6 |
-| Gifts | 🎁 | #E74C3C |
+| Category | Icon |
+|----------|------|
+| Salary | 💰 |
+| Freelance | 💻 |
+| Investments | 📈 |
+| Gifts | 🎁 |
 
 ---
 
@@ -238,64 +218,13 @@ Override with environment variable:
 export CLAWHUB_DATA_PATH=/custom/path
 ```
 
-Or use local project storage:
-```bash
-mkdir .clawhub  # Creates local storage in project directory
-```
-
----
-
-## Data Files
-
-```
-clawhub/
-├── data.json         # All transactions, budgets, goals
-└── backups/          # Timestamped backup files
-    └── backup-2026-01-31T12-00-00.json
-```
-
----
-
-## Example Workflow
-
-```typescript
-import { clawhub } from './dist/index.js';
-
-async function main() {
-  // 1. Initialize
-  await clawhub.initialize();
-
-  // 2. Add today's expenses using natural language
-  await clawhub.addFromNaturalLanguage('spent $12 on lunch');
-  await clawhub.addFromNaturalLanguage('paid $50 for gas');
-
-  // 3. Check budget status
-  const budgets = clawhub.getBudgetStatus();
-  for (const b of budgets) {
-    console.log(`${b.budgetName}: ${b.percentageUsed.toFixed(0)}% used`);
-  }
-
-  // 4. Get monthly summary
-  const summary = clawhub.getSpendingSummary();
-  console.log(`Net savings: $${summary.netSavings.toFixed(2)}`);
-
-  // 5. Generate insights
-  const insights = await clawhub.generateInsights();
-  for (const insight of insights) {
-    console.log(`${insight.type}: ${insight.message}`);
-  }
-}
-
-main().catch(console.error);
-```
-
 ---
 
 ## API Reference Summary
 
 | Method | Description |
 |--------|-------------|
-| `initialize(path?)` | Initialize the budget planner |
+| `initialize(path?)` | Initialize the budget tracker |
 | `addExpense(amount, category, description, options?)` | Add expense |
 | `addIncome(amount, category, description, options?)` | Add income |
 | `addFromNaturalLanguage(text)` | Parse and add from natural language |
